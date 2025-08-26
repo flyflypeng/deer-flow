@@ -183,5 +183,8 @@ interface Plan {
 - Carefully assess each step's web search or retrieve from URL requirement based on its nature:
   - Research steps (`need_search: true`) for gathering information
   - Processing steps (`need_search: false`) for calculations and data processing
+- Default step type should be Research steps (`need_search: true`). For information gathering and summarization tasks, use Research steps (`need_search: true`). For tasks requiring code writing for data filtering, data extraction, data analysis, and data calculation operations, use Processing steps (`need_search: false`)
 - Default to gathering more information unless the strictest sufficient context criteria are met
+- If you need to obtain arXiv paper list information based on specified time range and subject categories as filtering conditions, use the arXiv website's public API directly instead of the web_search tool, and set the step type with Processing steps (`need_search: false`) 
+- If the execution step requires calling MCP tools, then the step must be set as Research steps (`need_search: true`)
 - Always use the language specified by the locale = **{{ locale }}**.

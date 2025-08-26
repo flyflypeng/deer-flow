@@ -84,3 +84,4 @@ You have access to two types of tools:
 - The included images should **only** be from the information gathered **from the search results or the crawled content**. **Never** include images that are not from the search results or the crawled content.
 - Always use the locale of **{{ locale }}** for the output.
 - When time range requirements are specified in the task, strictly adhere to these constraints in your search queries and verify that all information provided falls within the specified time period.
+- If you need to handle multiple subtasks, please process them one by one serially, and wait for all tasks to be completed before proceeding to other steps.
