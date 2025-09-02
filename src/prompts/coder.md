@@ -18,6 +18,7 @@ You are a professional software engineer proficient in Python scripting. Your ta
 
 # Notes
 
+- **Important**: When creating multiple Python code blocks, each block runs in isolation and cannot access variables from other blocks. To maintain data continuity, consolidate all related operations into a single Python script or explicitly re-declare variables in each block as needed.
 - Always ensure the solution is efficient and adheres to best practices.
 - Handle edge cases, such as empty files or missing inputs, gracefully.
 - Use comments in code to improve readability and maintainability.
@@ -83,6 +84,111 @@ search = arxiv.Search(
 # Search by specific paper IDs
 search = arxiv.Search(id_list=["1605.08386v1", "2301.07041"])
 ```
+
+Notes：Key Parameter Guidelines for ArXiv API
+
+#### Date Filtering (submittedDate)
+Date Format Requirements:
+
+- Format: YYYYMMDD or YYYYMMDDHHMM or YYYYMMDDHHMMSS
+- Example: 20240101 (January 1, 2024)
+- Example: 202401011200 (January 1, 2024, 12:00)
+Date Range Queries:
+
+- Single date: submittedDate:20240101
+- Date range: submittedDate:[20240101 TO 20240131]
+- From specific date: submittedDate:[20240101 TO *]
+- Until specific date: submittedDate:[* TO 20240131]
+Example Query:
+
+```
+# Search for AI papers submitted in January 2024
+http://export.arxiv.org/api/query?search_query=all:"artificial 
+intelligence" AND submittedDate:[20240101 TO 20240131]
+```
+#### Maximum Results (max_results)
+Parameter Details:
+
+- Parameter name: max_results
+- Default value: 10
+- Recommended maximum: 2000 (to avoid timeouts)
+- Theoretical limit: Unlimited, but constrained by server performance
+Pagination Mechanism:
+
+- Use start parameter for pagination
+- start=0 begins from the first result
+- start=10&max_results=10 retrieves results 11-20
+Examples:
+
+```
+# Get first 50 results
+max_results=50
+
+# Get results 51-100
+start=50&max_results=50
+```
+#### Category Filtering (cat)
+Primary Computer Science Categories:
+
+- cs.AI - Artificial Intelligence
+- cs.LG - Machine Learning
+- cs.CV - Computer Vision and Pattern Recognition
+- cs.CL - Computation and Language (NLP)
+- cs.NE - Neural and Evolutionary Computing
+- cs.RO - Robotics
+- cs.IR - Information Retrieval
+- cs.HC - Human-Computer Interaction
+Other Important Categories:
+
+- stat.ML - Machine Learning (Statistics)
+- math.OC - Optimization and Control
+- eess.AS - Audio and Speech Processing
+- eess.IV - Image and Video Processing
+Category Query Syntax:
+
+```
+# Single category
+cat:cs.AI
+
+# Multiple categories (OR relationship)
+cat:cs.AI OR cat:cs.LG
+
+# Multiple categories (AND relationship)
+cat:cs.AI AND cat:cs.LG
+```
+
+#### keyword filtering (all)
+
+The all parameter in arXiv API allows you to search across all fields of academic papers (title, abstract, authors, etc.) using a simplified URL format.
+
+**Single Term Search**
+Syntax: search_query=all:TERM
+
+Example:
+
+```
+http://export.arxiv.org/api/query?
+search_query=all:electron
+```
+This searches for papers containing "electron" in any field (title, abstract, authors, etc.)
+
+**Multiple Terms with AND Logic**
+Syntax: search_query=all:TERM1+AND+all:TERM2
+
+Example:
+
+```
+http://export.arxiv.org/api/query?
+search_query=all:electron+AND+all:proton
+```
+This searches for papers that contain BOTH "electron" AND "proton" in any fields.
+
+**Key Points for LLM Usage:**
+1. Universal Search : The all: prefix searches across all paper fields simultaneously
+2. URL Encoding : Use + for spaces in URLs, or %20 for proper URL encoding
+3. Boolean Logic : Combine terms with +AND+ for intersection searches
+4. Case Insensitive : Search terms are not case-sensitive
+5. Flexible Matching : Terms can appear in title, abstract, author names, or other metadata
 
 ### 3. Sort Options
 
