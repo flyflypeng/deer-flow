@@ -492,6 +492,23 @@ async def researcher_node(
         tools,
     )
 
+async def paper_analysis_node(
+    state: State, config: RunnableConfig
+) -> Command[Literal["research_team"]]:
+    """paper_analysis node that do paper analysis"""
+    logger.info("paper_analysis node is analyzing paper.")
+    configurable = Configuration.from_runnable_config(config)
+    # tools = [get_web_search_tool(configurable.max_search_results), crawl_tool]
+    # retriever_tool = get_retriever_tool(state.get("resources", []))
+    # if retriever_tool:
+    #     tools.insert(0, retriever_tool)
+    # logger.info(f"paper_analysis node tools: {tools}")
+    return await _setup_and_execute_agent_step(
+        state,
+        config,
+        "paper_analysis",
+        [],
+    )
 
 async def coder_node(
     state: State, config: RunnableConfig

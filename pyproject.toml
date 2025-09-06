@@ -38,6 +38,10 @@ dependencies = [
     "langgraph-checkpoint-mongodb>=0.1.4",
     "langgraph-checkpoint-postgres==2.0.21",
     "requests>=2.32.3",
+    "fitz>=0.0.1.dev2",
+    "pypdf2>=3.0.1",
+    "pdfplumber>=0.11.7",
+    "pymupdf4llm>=0.0.27",
 ]
 
 [project.optional-dependencies]

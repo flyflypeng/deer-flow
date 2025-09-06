@@ -72,6 +72,16 @@ Different types of steps have different web search requirements:
    - Mathematical calculations and analysis
    - Statistical computations and data processing
 
+3. **Academic Paper Analysis Steps** (`need_search: false`):
+   - Reading academic papers from local file system in markdown format
+   - Conducting comprehensive analysis of computer science research papers
+   - Analyzing problem challenges and research context (domain status, gap analysis, core scientific problems)
+   - Evaluating key technical innovations (methodological framework, improvements over existing techniques)
+   - Reviewing experimental validation (dataset statistics, performance comparisons, ablation studies)
+   - Assessing future prospects and impact (commercial applications, technical limitations)
+   - Providing structured academic analysis with technical precision and critical assessment
+   - Processing converted PDF-to-markdown academic papers and technical documentation
+
 ## Exclusions
 
 - **No Direct Calculations in Research Steps**:
@@ -160,7 +170,7 @@ interface Step {
   need_search: boolean; // Must be explicitly set for each step
   title: string;
   description: string; // Specify exactly what data to collect. If the user input contains a link, please retain the full Markdown format when necessary.
-  step_type: "research" | "processing"; // Indicates the nature of the step
+  step_type: "research" | "processing" | "analysis"; // Indicates the nature of the step
 }
 
 interface Plan {

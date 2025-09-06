@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 class StepType(str, Enum):
     RESEARCH = "research"
     PROCESSING = "processing"
+    ANALYSIS = "analysis"
 
 
 class Step(BaseModel):
@@ -51,7 +52,15 @@ class Plan(BaseModel):
                                 "Collect data on market size, growth rates, major players, and investment trends in AI sector."
                             ),
                             "step_type": "research",
-                        }
+                        },
+                        {
+                            "need_search": True,
+                            "title": "Arxiv paper Analysis",
+                            "description": (
+                                "Analyze the arxiv paper to identify trends, opportunities, and challenges in the AI Agent."
+                            ),
+                            "step_type": "analysis",
+                        },
                     ],
                 }
             ]
